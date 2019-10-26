@@ -4,9 +4,10 @@ package gods
 type ListNode struct {
 	Data interface{}
 	Next *ListNode
+	Prev *ListNode
 }
 
 // NewListNode will return a ListNode that contains the passed in data
 func NewListNode(data interface{}) *ListNode {
-	return &ListNode{data, nil}
+	return &ListNode{data, nil, nil}
 }

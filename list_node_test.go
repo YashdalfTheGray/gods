@@ -15,7 +15,7 @@ func TestNew(t *testing.T) {
 		{
 			desc: "creates a new list node with the data",
 			in:   5,
-			out:  &gods.ListNode{Data: 5, Next: nil},
+			out:  &gods.ListNode{Data: 5, Next: nil, Prev: nil},
 		},
 	}
 	for _, tC := range testCases {
