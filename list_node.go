@@ -1,3 +1,5 @@
+// Package gods is a collection of data structures written in
+// golang. GoDS.
 package gods
 
 // ListNode represents one node in a linked list
