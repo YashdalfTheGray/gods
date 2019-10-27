@@ -24,3 +24,39 @@ func TestNewSinglyLinkedList(t *testing.T) {
 		})
 	}
 }
+
+func TestSinglyLinkedListShift(t *testing.T) {
+	testCases := []struct {
+		desc    string
+		in1     string
+		in2     string
+		in3     string
+		addAll  bool
+		prepend []string
+		legnth  uint32
+	}{
+		{
+			desc:    "can put something in an empty list",
+			in1:     "things",
+			in2:     "",
+			in3:     "",
+			addAll:  false,
+			prepend: []string{},
+			legnth:  1,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ll := gods.NewSinglyLinkedList()
+			if tC.addAll {
+				ll.Shift(tC.in1).Shift(tC.in2).Shift(tC.in3)
+			} else {
+				ll.Shift(tC.in1)
+			}
+
+			if ll.Length() != tC.legnth {
+				t.Errorf("Expected length to be 1 but got %d", ll.Length())
+			}
+		})
+	}
+}
