@@ -17,3 +17,19 @@ func NewSinglyLinkedList() SinglyLinkedList {
 func (ll SinglyLinkedList) Length() uint32 {
 	return ll.length
 }
+
+// Shift adds an item with the data provided to the front
+// of the SinglyLinkedList
+func (ll SinglyLinkedList) Shift(data interface{}) SinglyLinkedList {
+	if ll.head == nil {
+		ll.head = NewListNode(data)
+		ll.head.Next = nil
+	} else {
+		temp := ll.head
+		ll.head = NewListNode(data)
+		ll.head.Next = temp
+	}
+
+	ll.length++
+	return ll
+}
