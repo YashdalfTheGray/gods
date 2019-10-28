@@ -33,3 +33,39 @@ func (ll *SinglyLinkedList) Shift(data interface{}) *SinglyLinkedList {
 	ll.length++
 	return ll
 }
+
+// Iterate returns an iterator over the contents of the
+// SinglyLinkedList
+func (ll SinglyLinkedList) Iterate() Iterator {
+	return newLinkedListIterator(ll)
+}
+
+type linkedListIterator struct {
+	ll      SinglyLinkedList
+	current *ListNode
+	data    interface{}
+}
+
+func newLinkedListIterator(ll SinglyLinkedList) *linkedListIterator {
+	return &linkedListIterator{ll: ll}
+}
+
+func (i *linkedListIterator) Next() bool {
+	if i.current == nil {
+		i.data = i.ll.head.Data
+		i.current = i.ll.head
+	} else {
+		i.data = i.current.Data
+		i.current = i.current.Next
+	}
+
+	return i.current != nil
+}
+
+func (i linkedListIterator) Get() interface{} {
+	return i.data
+}
+
+func (i linkedListIterator) Error() error {
+	return nil
+}
