@@ -83,3 +83,44 @@ func TestSinglyLinkedListShift(t *testing.T) {
 		})
 	}
 }
+
+func TestSinglyLinkedListIterator(t *testing.T) {
+	testCases := []struct {
+		desc    string
+		content []int
+	}{
+		{
+			desc:    "iterates over a linked list with some stuff",
+			content: []int{1, 2, 3, 4},
+		},
+		{
+			desc:    "iterates over a linked list with one stuff",
+			content: []int{5},
+		},
+		{
+			desc:    "iterates over a linked list with no stuff",
+			content: []int{},
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ll := gods.NewSinglyLinkedList()
+
+			for i := len(tC.content) - 1; i >= 0; i-- {
+				ll.Shift(tC.content[i])
+			}
+
+			iterator := ll.Iterate()
+			for i := 0; iterator.Next(); {
+				if v := iterator.Get(); v != tC.content[i] {
+					t.Errorf("Expected %d at position %d but got %d", tC.content[i], i, v)
+				}
+				i++
+			}
+
+			if err := iterator.Error(); err != nil {
+				t.Errorf("Expected the iterator to not be in an error state")
+			}
+		})
+	}
+}

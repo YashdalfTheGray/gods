@@ -43,7 +43,6 @@ func (ll SinglyLinkedList) Iterate() Iterator {
 type linkedListIterator struct {
 	ll      SinglyLinkedList
 	current *ListNode
-	data    interface{}
 }
 
 func newLinkedListIterator(ll SinglyLinkedList) *linkedListIterator {
@@ -52,10 +51,8 @@ func newLinkedListIterator(ll SinglyLinkedList) *linkedListIterator {
 
 func (i *linkedListIterator) Next() bool {
 	if i.current == nil {
-		i.data = i.ll.head.Data
 		i.current = i.ll.head
 	} else {
-		i.data = i.current.Data
 		i.current = i.current.Next
 	}
 
@@ -63,7 +60,7 @@ func (i *linkedListIterator) Next() bool {
 }
 
 func (i linkedListIterator) Get() interface{} {
-	return i.data
+	return i.current.Data
 }
 
 func (i linkedListIterator) Error() error {
