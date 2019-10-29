@@ -124,3 +124,49 @@ func TestSinglyLinkedListIterator(t *testing.T) {
 		})
 	}
 }
+
+func TestSinglyLinkedListUnshift(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		content     []int
+		expectError bool
+		result      interface{}
+	}{
+		{
+			desc:        "can unshift from a list with some stuff",
+			content:     []int{1, 2, 3, 4},
+			expectError: false,
+			result:      1,
+		},
+		{
+			desc:        "can unshift from a list with one stuff",
+			content:     []int{5},
+			expectError: false,
+			result:      5,
+		},
+		{
+			desc:        "unshift from a list with no stuff returns error",
+			content:     []int{},
+			expectError: true,
+			result:      nil,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ll := gods.NewSinglyLinkedList()
+
+			for i := len(tC.content) - 1; i >= 0; i-- {
+				ll.Shift(tC.content[i])
+			}
+
+			result, err := ll.Unshift()
+			if tC.expectError && err == nil {
+				t.Errorf("Expected error but got nil")
+			}
+
+			if result != tC.result {
+				t.Errorf("Expected unshift to return %d but got %d", tC.result, result)
+			}
+		})
+	}
+}
