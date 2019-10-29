@@ -1,5 +1,7 @@
 package gods
 
+import "errors"
+
 // SinglyLinkedList is a list built out nodes that contain
 //  data and a pointer to the next element in the list
 type SinglyLinkedList struct {
@@ -32,6 +34,20 @@ func (ll *SinglyLinkedList) Shift(data interface{}) *SinglyLinkedList {
 
 	ll.length++
 	return ll
+}
+
+// Unshift is the opposite of Shift. It removed one item from
+// the start of the list. It also returns an error for an
+// empty list
+func (ll *SinglyLinkedList) Unshift() (interface{}, error) {
+	if ll.head == nil {
+		return nil, errors.New("The list is empty")
+	}
+
+	temp := ll.head
+	ll.head = ll.head.Next
+	ll.length--
+	return temp.Data, nil
 }
 
 // Iterate returns an iterator over the contents of the
