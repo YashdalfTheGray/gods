@@ -50,6 +50,26 @@ func (ll *SinglyLinkedList) Unshift() (interface{}, error) {
 	return temp.Data, nil
 }
 
+// Push pushes an item to the end of the SinglyLinkedList
+func (ll *SinglyLinkedList) Push(data interface{}) *SinglyLinkedList {
+	if ll.head == nil {
+		ll.head = NewListNode(data)
+	} else if ll.head.Next == nil {
+		ll.head.Next = NewListNode(data)
+	} else {
+		node := ll.head
+
+		for node.Next != nil {
+			node = node.Next
+		}
+
+		node.Next = NewListNode(data)
+	}
+
+	ll.length++
+	return ll
+}
+
 // Iterate returns an iterator over the contents of the
 // SinglyLinkedList
 func (ll SinglyLinkedList) Iterate() Iterator {
