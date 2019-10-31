@@ -19,4 +19,8 @@ func ExampleIterator() {
 	if err := iterator.Error(); err != nil {
 		fmt.Println(err.Error())
 	}
+	// Output: 1
+	// 2
+	// 3
+	// 4
 }

@@ -3,7 +3,7 @@ package gods
 import "errors"
 
 // SinglyLinkedList is a list built out nodes that contain
-//  data and a pointer to the next element in the list.
+// data and a pointer to the next element in the list.
 type SinglyLinkedList struct {
 	head   *ListNode
 	length uint32
