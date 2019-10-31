@@ -3,7 +3,7 @@ package gods
 import "errors"
 
 // SinglyLinkedList is a list built out nodes that contain
-//  data and a pointer to the next element in the list
+//  data and a pointer to the next element in the list.
 type SinglyLinkedList struct {
 	head   *ListNode
 	length uint32
@@ -15,13 +15,13 @@ func NewSinglyLinkedList() SinglyLinkedList {
 	return SinglyLinkedList{}
 }
 
-// Length returns the length of the SinglyLinkedList
+// Length returns the length of the SinglyLinkedList.
 func (ll SinglyLinkedList) Length() uint32 {
 	return ll.length
 }
 
 // Shift adds an item with the data provided to the front
-// of the SinglyLinkedList
+// of the SinglyLinkedList.
 func (ll *SinglyLinkedList) Shift(data interface{}) *SinglyLinkedList {
 	if ll.head == nil {
 		ll.head = NewListNode(data)
@@ -38,7 +38,7 @@ func (ll *SinglyLinkedList) Shift(data interface{}) *SinglyLinkedList {
 
 // Unshift is the opposite of Shift. It removed one item from
 // the start of the list. It also returns an error for an
-// empty list
+// empty list.
 func (ll *SinglyLinkedList) Unshift() (interface{}, error) {
 	if ll.head == nil {
 		return nil, errors.New("The list is empty")
@@ -50,7 +50,7 @@ func (ll *SinglyLinkedList) Unshift() (interface{}, error) {
 	return temp.Data, nil
 }
 
-// Push pushes an item to the end of the SinglyLinkedList
+// Push pushes an item to the end of the SinglyLinkedList.
 func (ll *SinglyLinkedList) Push(data interface{}) *SinglyLinkedList {
 	if ll.head == nil {
 		ll.head = NewListNode(data)
@@ -71,7 +71,7 @@ func (ll *SinglyLinkedList) Push(data interface{}) *SinglyLinkedList {
 }
 
 // Iterate returns an iterator over the contents of the
-// SinglyLinkedList
+// SinglyLinkedList.
 func (ll SinglyLinkedList) Iterate() Iterator {
 	return newLinkedListIterator(ll)
 }
