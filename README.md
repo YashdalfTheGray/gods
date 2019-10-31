@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.com/YashdalfTheGray/gods.svg?branch=master)](https://travis-ci.com/YashdalfTheGray/gods)
 [![Coverage Status](https://coveralls.io/repos/github/YashdalfTheGray/gods/badge.svg)](https://coveralls.io/github/YashdalfTheGray/gods)
 [![Go Report Card](https://goreportcard.com/badge/github.com/yashdalfthegray/gods)](https://goreportcard.com/report/github.com/yashdalfthegray/gods)
+[![Documentation](https://godoc.org/github.com/YashdalfTheGray/gods?status.svg)](http://godoc.org/github.com/YashdalfTheGray/gods)
 
 # gods
 
