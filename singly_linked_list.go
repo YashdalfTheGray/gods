@@ -70,6 +70,32 @@ func (ll *SinglyLinkedList) Push(data interface{}) *SinglyLinkedList {
 	return ll
 }
 
+// Pop is the opposite of Push. It removed an item from the end
+// of a SinglyLinkedList. It also returns an error if the list
+// is empty.
+func (ll *SinglyLinkedList) Pop() (interface{}, error) {
+	if ll.head == nil {
+		return nil, errors.New("The list is empty")
+	} else if ll.head.Next == nil {
+		temp := ll.head
+		ll.head = nil
+		ll.length--
+		return temp.Data, nil
+	} else {
+		node := ll.head
+
+		for node.Next != nil && node.Next.Next != nil {
+			node = node.Next
+		}
+
+		temp := node.Next
+		node.Next = nil
+		ll.length--
+		return temp.Data, nil
+	}
+
+}
+
 // Iterate returns an iterator over the contents of the
 // SinglyLinkedList.
 func (ll SinglyLinkedList) Iterate() Iterator {
