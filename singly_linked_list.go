@@ -93,7 +93,25 @@ func (ll *SinglyLinkedList) Pop() (interface{}, error) {
 		ll.length--
 		return temp.Data, nil
 	}
+}
 
+// GetAt returns a peek at the data sitting at a given index.
+// This method does not return the item from the list but instead
+// a copy of the data contained within the item.
+func (ll *SinglyLinkedList) GetAt(index uint32) (interface{}, error) {
+	if ll.head == nil {
+		return nil, errors.New("The list is empty")
+	} else if ll.length <= index {
+		return nil, errors.New("Index out of bounds error")
+	} else {
+		node := ll.head
+
+		for i := uint32(0); i < index; i++ {
+			node = node.Next
+		}
+
+		return node.Data, nil
+	}
 }
 
 // Iterate returns an iterator over the contents of the
