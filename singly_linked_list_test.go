@@ -229,7 +229,64 @@ func TestSinglyLinkedListPop(t *testing.T) {
 			}
 
 			if result != tC.result {
-				t.Errorf("Expected unshift to return %d but got %d", tC.result, result)
+				t.Errorf("Expected pop to return %d but got %d", tC.result, result)
+			}
+		})
+	}
+}
+
+func TestSinglyLinkedListGetAt(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		content     []int
+		index       uint32
+		expectError bool
+		result      interface{}
+	}{
+		{
+			desc:        "can GetAt from a list with some stuff",
+			content:     []int{1, 2, 3, 4},
+			index:       2,
+			expectError: false,
+			result:      3,
+		},
+		{
+			desc:        "can GetAt from a list with one stuff",
+			content:     []int{5},
+			index:       0,
+			expectError: false,
+			result:      5,
+		},
+		{
+			desc:        "GetAt from a list with no stuff returns error",
+			content:     []int{},
+			index:       2,
+			expectError: true,
+			result:      nil,
+		},
+		{
+			desc:        "GetAt from a list with not enough stuff returns error",
+			content:     []int{1, 2, 3, 4, 5},
+			index:       8,
+			expectError: true,
+			result:      nil,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ll := gods.NewSinglyLinkedList()
+
+			for _, v := range tC.content {
+				ll.Push(v)
+			}
+
+			result, err := ll.GetAt(tC.index)
+			if tC.expectError && err == nil {
+				t.Errorf("Expected error but got nil")
+			}
+
+			if result != tC.result {
+				t.Errorf("Expected getAt to return %d but got %d", tC.result, result)
 			}
 		})
 	}
