@@ -16,3 +16,8 @@ type DoublyLinkedList struct {
 func NewDoublyLinkedList(circular bool) DoublyLinkedList {
 	return DoublyLinkedList{circular: circular}
 }
+
+// Length returns the total number of nodes in the list
+func (ll DoublyLinkedList) Length() uint32 {
+	return ll.length
+}
