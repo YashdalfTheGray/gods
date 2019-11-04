@@ -25,6 +25,43 @@ func TestNewSinglyLinkedList(t *testing.T) {
 	}
 }
 
+func TestSinglyLinkedListLength(t *testing.T) {
+	testCases := []struct {
+		desc    string
+		content []int
+		length  uint32
+	}{
+		{
+			desc:    "returns 0 for empty linked list",
+			content: []int{},
+			length:  0,
+		},
+		{
+			desc:    "returns 1 for a linked list with 1 item in it",
+			content: []int{1},
+			length:  1,
+		},
+		{
+			desc:    "returns length of linked list",
+			content: []int{1, 2, 3, 4},
+			length:  4,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ll := gods.NewSinglyLinkedList()
+
+			for _, v := range tC.content {
+				ll.Shift(v)
+			}
+
+			if listLength := ll.Length(); listLength != tC.length {
+				t.Errorf("Expected length to be %d but got %d", tC.length, listLength)
+			}
+		})
+	}
+}
+
 func TestSinglyLinkedListShift(t *testing.T) {
 	testCases := []struct {
 		desc    string
