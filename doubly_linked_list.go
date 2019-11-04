@@ -21,3 +21,23 @@ func NewDoublyLinkedList(circular bool) DoublyLinkedList {
 func (ll DoublyLinkedList) Length() uint32 {
 	return ll.length
 }
+
+// Shift adds an item that contains the given data to the start
+// of the DoublyLinkedList
+func (ll *DoublyLinkedList) Shift(data interface{}) *DoublyLinkedList {
+	if ll.head == nil {
+		ll.head = NewListNode(data)
+		ll.tail = ll.head
+	} else {
+		temp := ll.head
+		ll.head = NewListNode(data)
+
+		ll.head.Next = temp
+		ll.head.Prev = ll.tail
+		ll.tail.Next = ll.head
+		temp.Prev = ll.head
+	}
+
+	ll.length++
+	return ll
+}
