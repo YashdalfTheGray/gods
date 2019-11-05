@@ -35,9 +35,14 @@ func (ll *DoublyLinkedList) Shift(data interface{}) *DoublyLinkedList {
 		ll.head = NewListNode(data)
 
 		ll.head.Next = temp
-		ll.head.Prev = ll.tail
-		ll.tail.Next = ll.head
 		temp.Prev = ll.head
+
+		if ll.circular {
+			ll.head.Prev = ll.tail
+			if ll.tail != nil {
+				ll.tail.Next = ll.head
+			}
+		}
 	}
 
 	ll.length++
