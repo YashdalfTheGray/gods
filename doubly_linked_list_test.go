@@ -112,3 +112,67 @@ func TestDoublyLinkedListShift(t *testing.T) {
 		})
 	}
 }
+
+func TestDoublyLinkedListUnshift(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		content     []int
+		expectError bool
+		circular    bool
+		result      interface{}
+	}{
+		{
+			desc:        "can unshift from a list with some stuff",
+			content:     []int{1, 2, 3, 4},
+			expectError: false,
+			circular:    false,
+			result:      1,
+		},
+		{
+			desc:        "can unshift from a list with one stuff",
+			content:     []int{5},
+			expectError: false,
+			circular:    false,
+			result:      5,
+		},
+		{
+			desc:        "unshift from a list with no stuff returns error",
+			content:     []int{},
+			expectError: true,
+			circular:    false,
+			result:      nil,
+		},
+		{
+			desc:        "can unshift from a circular list with some stuff",
+			content:     []int{1, 2, 3, 4},
+			expectError: false,
+			circular:    true,
+			result:      1,
+		},
+		{
+			desc:        "can unshift from a circular list with one stuff",
+			content:     []int{5},
+			expectError: false,
+			circular:    true,
+			result:      5,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ll := gods.NewDoublyLinkedList(tC.circular)
+
+			for i := len(tC.content) - 1; i >= 0; i-- {
+				ll.Shift(tC.content[i])
+			}
+
+			result, err := ll.Unshift()
+			if tC.expectError && err == nil {
+				t.Errorf("Expected error but got nil")
+			}
+
+			if result != tC.result {
+				t.Errorf("Expected unshift to return %d but got %d", tC.result, result)
+			}
+		})
+	}
+}
