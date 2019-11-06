@@ -77,3 +77,17 @@ func (ll *DoublyLinkedList) Unshift() (interface{}, error) {
 	ll.length--
 	return temp.Data, nil
 }
+
+// Push pushes an item to the end of the DoublyLinkedList.
+func (ll *DoublyLinkedList) Push(data interface{}) *DoublyLinkedList {
+	temp := ll.tail
+	ll.tail = NewListNode(data)
+	ll.tail.Prev = temp
+
+	if ll.circular {
+		ll.tail.Next = ll.head
+	}
+
+	ll.length++
+	return ll
+}
