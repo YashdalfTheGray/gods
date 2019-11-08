@@ -91,3 +91,30 @@ func (ll *DoublyLinkedList) Push(data interface{}) *DoublyLinkedList {
 	ll.length++
 	return ll
 }
+
+// Pop is the opposite of Push. It removed an item from the end
+// of a SinglyLinkedList. It also returns an error if the list
+// is empty.
+func (ll *DoublyLinkedList) Pop() (interface{}, error) {
+	if ll.head == nil {
+		return nil, errors.New("The list is empty")
+	} else if ll.head.Next == nil {
+		temp := ll.head
+		ll.head = nil
+		ll.length--
+		return temp.Data, nil
+	} else {
+		temp := ll.tail
+		ll.tail = ll.tail.Prev
+
+		if ll.circular {
+			ll.head.Prev = ll.tail
+			ll.tail.Next = ll.head
+		} else {
+			ll.tail.Next = nil
+		}
+
+		ll.length--
+		return temp.Data, nil
+	}
+}
