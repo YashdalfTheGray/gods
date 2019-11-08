@@ -296,3 +296,74 @@ func TestDoublyLinkedListPush(t *testing.T) {
 		})
 	}
 }
+
+func TestDoublyLinkedListPop(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		content     []int
+		circular    bool
+		expectError bool
+		result      interface{}
+	}{
+		{
+			desc:        "can pop from a list with some stuff",
+			content:     []int{1, 2, 3, 4},
+			circular:    false,
+			expectError: false,
+			result:      4,
+		},
+		{
+			desc:        "can pop from a list with one stuff",
+			content:     []int{5},
+			circular:    false,
+			expectError: false,
+			result:      5,
+		},
+		{
+			desc:        "pop from a list with no stuff returns error",
+			content:     []int{},
+			circular:    false,
+			expectError: true,
+			result:      nil,
+		},
+		{
+			desc:        "can pop from a circular list with some stuff",
+			content:     []int{1, 2, 3, 4},
+			circular:    true,
+			expectError: false,
+			result:      4,
+		},
+		{
+			desc:        "can pop from a circular list with one stuff",
+			content:     []int{5},
+			circular:    true,
+			expectError: false,
+			result:      5,
+		},
+		{
+			desc:        "pop from a circular list with no stuff returns error",
+			content:     []int{},
+			circular:    true,
+			expectError: true,
+			result:      nil,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ll := gods.NewDoublyLinkedList(tC.circular)
+
+			for _, v := range tC.content {
+				ll.Push(v)
+			}
+
+			result, err := ll.Pop()
+			if tC.expectError && err == nil {
+				t.Errorf("Expected error but got nil")
+			}
+
+			if result != tC.result {
+				t.Errorf("Expected pop to return %d but got %d", tC.result, result)
+			}
+		})
+	}
+}
