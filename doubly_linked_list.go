@@ -125,3 +125,18 @@ func (ll *DoublyLinkedList) Pop() (interface{}, error) {
 		return temp.Data, nil
 	}
 }
+
+// Direction represents a direction for the iterator
+type Direction int
+
+// Constants for each of the directions that we can iterate
+const (
+	Forward Direction = iota
+	Reverse
+)
+
+type doublyLinkedListIterator struct {
+	ll        DoublyLinkedList
+	current   *ListNode
+	direction Direction
+}
