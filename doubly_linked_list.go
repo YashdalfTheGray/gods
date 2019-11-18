@@ -140,3 +140,15 @@ type doublyLinkedListIterator struct {
 	current   *ListNode
 	direction Direction
 }
+
+func newDoublyLinkedListIterator(ll DoublyLinkedList, d Direction) *doublyLinkedListIterator {
+	return &doublyLinkedListIterator{ll: ll, direction: d}
+}
+
+func (i doublyLinkedListIterator) Get() interface{} {
+	return i.current.Data
+}
+
+func (i doublyLinkedListIterator) Error() error {
+	return nil
+}
