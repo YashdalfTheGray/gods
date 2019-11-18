@@ -117,19 +117,19 @@ func (ll *SinglyLinkedList) GetAt(index uint32) (interface{}, error) {
 // Iterate returns an iterator over the contents of the
 // SinglyLinkedList.
 func (ll SinglyLinkedList) Iterate() Iterator {
-	return newLinkedListIterator(ll)
+	return newSinglyLinkedListIterator(ll)
 }
 
-type linkedListIterator struct {
+type singlyLinkedListIterator struct {
 	ll      SinglyLinkedList
 	current *ListNode
 }
 
-func newLinkedListIterator(ll SinglyLinkedList) *linkedListIterator {
-	return &linkedListIterator{ll: ll}
+func newSinglyLinkedListIterator(ll SinglyLinkedList) *singlyLinkedListIterator {
+	return &singlyLinkedListIterator{ll: ll}
 }
 
-func (i *linkedListIterator) Next() bool {
+func (i *singlyLinkedListIterator) Next() bool {
 	if i.current == nil {
 		i.current = i.ll.head
 	} else {
@@ -139,10 +139,10 @@ func (i *linkedListIterator) Next() bool {
 	return i.current != nil
 }
 
-func (i linkedListIterator) Get() interface{} {
+func (i singlyLinkedListIterator) Get() interface{} {
 	return i.current.Data
 }
 
-func (i linkedListIterator) Error() error {
+func (i singlyLinkedListIterator) Error() error {
 	return nil
 }
