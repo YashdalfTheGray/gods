@@ -138,6 +138,7 @@ const (
 type doublyLinkedListIterator struct {
 	ll        DoublyLinkedList
 	current   *ListNode
+	goal      *ListNode
 	direction Direction
 }
 
@@ -149,8 +150,10 @@ func (i *doublyLinkedListIterator) Next() bool {
 	if i.current == nil {
 		if i.direction == Forward {
 			i.current = i.ll.head
+			i.goal = i.ll.tail
 		} else {
 			i.current = i.ll.tail
+			i.goal = i.ll.head
 		}
 	} else {
 		if i.direction == Forward {
@@ -160,7 +163,11 @@ func (i *doublyLinkedListIterator) Next() bool {
 		}
 	}
 
+	if i.ll.circular {
+		return i.current != i.goal
+	}
 	return i.current != nil
+
 }
 
 func (i doublyLinkedListIterator) Get() interface{} {
