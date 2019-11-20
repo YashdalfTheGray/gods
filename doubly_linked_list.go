@@ -145,6 +145,24 @@ func newDoublyLinkedListIterator(ll DoublyLinkedList, d Direction) *doublyLinked
 	return &doublyLinkedListIterator{ll: ll, direction: d}
 }
 
+func (i *doublyLinkedListIterator) Next() bool {
+	if i.current == nil {
+		if i.direction == Forward {
+			i.current = i.ll.head
+		} else {
+			i.current = i.ll.tail
+		}
+	} else {
+		if i.direction == Forward {
+			i.current = i.current.Next
+		} else {
+			i.current = i.current.Prev
+		}
+	}
+
+	return i.current != nil
+}
+
 func (i doublyLinkedListIterator) Get() interface{} {
 	return i.current.Data
 }
