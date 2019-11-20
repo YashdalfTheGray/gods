@@ -2,6 +2,15 @@ package gods
 
 import "errors"
 
+// Direction represents a direction for the iterator
+type Direction int
+
+// Constants for each of the directions that we can iterate
+const (
+	Forward Direction = iota
+	Reverse
+)
+
 // DoublyLinkedList is a type of list with nodes
 // that hold references to the node before and the
 // node after.
@@ -126,14 +135,11 @@ func (ll *DoublyLinkedList) Pop() (interface{}, error) {
 	}
 }
 
-// Direction represents a direction for the iterator
-type Direction int
-
-// Constants for each of the directions that we can iterate
-const (
-	Forward Direction = iota
-	Reverse
-)
+// Iterate returns an iterator over the contents of the
+// DoublyLinkedList. It can iterate in either direction.
+func (ll DoublyLinkedList) Iterate(d Direction) Iterator {
+	return newDoublyLinkedListIterator(ll, d)
+}
 
 type doublyLinkedListIterator struct {
 	ll        DoublyLinkedList
