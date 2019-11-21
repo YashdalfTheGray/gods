@@ -367,3 +367,110 @@ func TestDoublyLinkedListPop(t *testing.T) {
 		})
 	}
 }
+
+func TestDoublyLinkedListIterator(t *testing.T) {
+	testCases := []struct {
+		desc      string
+		content   []int
+		circular  bool
+		direction gods.Direction
+	}{
+		{
+			desc:      "iterates over a linked list with some stuff (flat forward)",
+			content:   []int{1, 2, 3, 4},
+			circular:  false,
+			direction: gods.Forward,
+		},
+		{
+			desc:      "iterates over a linked list with one stuff (flat forward)",
+			content:   []int{5},
+			circular:  false,
+			direction: gods.Forward,
+		},
+		{
+			desc:      "iterates over a linked list with no stuff (flat forward)",
+			content:   []int{},
+			circular:  false,
+			direction: gods.Forward,
+		},
+		{
+			desc:      "iterates over a linked list with some stuff (circular forward)",
+			content:   []int{1, 2, 3, 4},
+			circular:  true,
+			direction: gods.Forward,
+		},
+		{
+			desc:      "iterates over a linked list with one stuff (circular forward)",
+			content:   []int{5},
+			circular:  true,
+			direction: gods.Forward,
+		},
+		{
+			desc:      "iterates over a linked list with no stuff (circular forward)",
+			content:   []int{},
+			circular:  true,
+			direction: gods.Forward,
+		},
+		{
+			desc:      "iterates over a linked list with some stuff (circular reverse)",
+			content:   []int{1, 2, 3, 4},
+			circular:  true,
+			direction: gods.Reverse,
+		},
+		{
+			desc:      "iterates over a linked list with one stuff (circular reverse)",
+			content:   []int{5},
+			circular:  true,
+			direction: gods.Reverse,
+		},
+		{
+			desc:      "iterates over a linked list with no stuff (circular reverse)",
+			content:   []int{},
+			circular:  true,
+			direction: gods.Reverse,
+		},
+		{
+			desc:      "iterates over a linked list with some stuff (flat reverse)",
+			content:   []int{1, 2, 3, 4},
+			circular:  false,
+			direction: gods.Reverse,
+		},
+		{
+			desc:      "iterates over a linked list with one stuff (flat reverse)",
+			content:   []int{5},
+			circular:  false,
+			direction: gods.Reverse,
+		},
+		{
+			desc:      "iterates over a linked list with no stuff (flat reverse)",
+			content:   []int{},
+			circular:  false,
+			direction: gods.Reverse,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			ll := gods.NewDoublyLinkedList(tC.circular)
+
+			for _, v := range tC.content {
+				ll.Push(v)
+			}
+
+			iterator := ll.Iterate(tC.direction)
+			for i := 0; iterator.Next(); {
+				expected := tC.content[i]
+				if tC.direction == gods.Reverse {
+					expected = tC.content[len(tC.content)-1-i]
+				}
+				if v := iterator.Get(); v != expected {
+					t.Errorf("Expected %d at position %d but got %d", tC.content[i], i, v)
+				}
+				i++
+			}
+
+			if err := iterator.Error(); err != nil {
+				t.Errorf("Expected the iterator to not be in an error state")
+			}
+		})
+	}
+}
