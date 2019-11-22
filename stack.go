@@ -8,5 +8,17 @@ type Stack struct {
 
 // NewStack returns a new stack data structure
 func NewStack() Stack {
-	return Stack{}
+	newList := NewSinglyLinkedList()
+	return Stack{list: &newList}
+}
+
+// Length returns the current length of the stack
+func (s Stack) Length() uint32 {
+	return s.list.Length()
+}
+
+// Push adds something to the stack
+func (s *Stack) Push(data interface{}) *Stack {
+	s.list.Push(data)
+	return s
 }
