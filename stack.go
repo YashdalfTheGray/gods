@@ -33,3 +33,13 @@ func (s *Stack) Pop() (interface{}, error) {
 	}
 	return val, nil
 }
+
+// Peek returns a copy of the element at the top
+// of the stack but doesn't pop the element
+func (s *Stack) Peek() (interface{}, error) {
+	val, err := s.list.GetAt(s.list.Length() - 1)
+	if err != nil {
+		return nil, errors.New("The stack is empty")
+	}
+	return val, nil
+}
