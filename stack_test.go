@@ -129,3 +129,49 @@ func TestStackPop(t *testing.T) {
 		})
 	}
 }
+
+func TestStackPeek(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		content     []int
+		expectError bool
+		result      interface{}
+	}{
+		{
+			desc:        "can peek at a stack with some stuff",
+			content:     []int{1, 2, 3, 4},
+			expectError: false,
+			result:      4,
+		},
+		{
+			desc:        "can peek at a stack with one stuff",
+			content:     []int{5},
+			expectError: false,
+			result:      5,
+		},
+		{
+			desc:        "can peek at a stack with no stuff returns error",
+			content:     []int{},
+			expectError: true,
+			result:      nil,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			s := gods.NewStack()
+
+			for _, v := range tC.content {
+				s.Push(v)
+			}
+
+			result, err := s.Peek()
+			if tC.expectError && err == nil {
+				t.Errorf("Expected error but got nil")
+			}
+
+			if result != tC.result {
+				t.Errorf("Expected getAt to return %d but got %d", tC.result, result)
+			}
+		})
+	}
+}
