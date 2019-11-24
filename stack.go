@@ -1,5 +1,7 @@
 package gods
 
+import "errors"
+
 // Stack represents a stack data structure and
 // it is based on a singly linked list
 type Stack struct {
@@ -21,4 +23,13 @@ func (s Stack) Length() uint32 {
 func (s *Stack) Push(data interface{}) *Stack {
 	s.list.Push(data)
 	return s
+}
+
+// Pop removed the top element from the stack
+func (s *Stack) Pop() (interface{}, error) {
+	val, err := s.list.Pop()
+	if err != nil {
+		return nil, errors.New("The stack is empty")
+	}
+	return val, nil
 }
