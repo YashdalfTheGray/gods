@@ -175,3 +175,35 @@ func TestStackPeek(t *testing.T) {
 		})
 	}
 }
+
+func TestStackIsEmpty(t *testing.T) {
+	testCases := []struct {
+		desc     string
+		content  []int
+		expected bool
+	}{
+		{
+			desc:     "returns true for an empty stack",
+			content:  []int{},
+			expected: true,
+		},
+		{
+			desc:     "returns true for an empty stack",
+			content:  []int{1, 2, 3},
+			expected: false,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			s := gods.NewStack()
+
+			for _, v := range tC.content {
+				s.Push(v)
+			}
+
+			if actual := s.IsEmpty(); actual != tC.expected {
+				t.Errorf("Expected IsEmpty to return %t but got %t", tC.expected, actual)
+			}
+		})
+	}
+}
