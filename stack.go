@@ -43,3 +43,8 @@ func (s *Stack) Peek() (interface{}, error) {
 	}
 	return val, nil
 }
+
+// IsEmpty returns whether the stack is empty
+func (s Stack) IsEmpty() bool {
+	return s.list.Length() == 0
+}
