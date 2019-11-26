@@ -18,8 +18,45 @@ func TestNewStack(t *testing.T) {
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
-			if s := gods.NewStack(); s.Length() != 0 {
-				t.Errorf("Expected length to be 0 but got %d", s.Length())
+			if s := gods.NewStack(); s.Size() != 0 {
+				t.Errorf("Expected length to be 0 but got %d", s.Size())
+			}
+		})
+	}
+}
+
+func TestStackSize(t *testing.T) {
+	testCases := []struct {
+		desc    string
+		content []int
+		length  uint32
+	}{
+		{
+			desc:    "returns 0 for empty linked list",
+			content: []int{},
+			length:  0,
+		},
+		{
+			desc:    "returns 1 for a linked list with 1 item in it",
+			content: []int{1},
+			length:  1,
+		},
+		{
+			desc:    "returns length of linked list",
+			content: []int{1, 2, 3, 4},
+			length:  4,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			s := gods.NewStack()
+
+			for _, v := range tC.content {
+				s.Push(v)
+			}
+
+			if listLength := s.Size(); listLength != tC.length {
+				t.Errorf("Expected length to be %d but got %d", tC.length, listLength)
 			}
 		})
 	}
@@ -77,8 +114,8 @@ func TestStackPush(t *testing.T) {
 				s.Push(tC.in1)
 			}
 
-			if s.Length() != tC.length {
-				t.Errorf("Expected length to be %d but got %d", tC.length, s.Length())
+			if s.Size() != tC.length {
+				t.Errorf("Expected length to be %d but got %d", tC.length, s.Size())
 			}
 		})
 	}
