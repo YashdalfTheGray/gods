@@ -14,8 +14,8 @@ func NewStack() Stack {
 	return Stack{list: &newList}
 }
 
-// Length returns the current length of the stack
-func (s Stack) Length() uint32 {
+// Size returns the current length of the stack
+func (s Stack) Size() uint32 {
 	return s.list.Length()
 }
 
