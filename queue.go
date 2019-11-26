@@ -11,3 +11,8 @@ type Queue struct {
 func NewQueue() *Queue {
 	return &Queue{}
 }
+
+// Size returns the size of the queue itself
+func (q Queue) Size() uint32 {
+	return q.list.Length()
+}
