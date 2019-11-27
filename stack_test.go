@@ -32,17 +32,17 @@ func TestStackSize(t *testing.T) {
 		length  uint32
 	}{
 		{
-			desc:    "returns 0 for empty linked list",
+			desc:    "returns 0 for empty stack",
 			content: []int{},
 			length:  0,
 		},
 		{
-			desc:    "returns 1 for a linked list with 1 item in it",
+			desc:    "returns 1 for a stack with 1 item in it",
 			content: []int{1},
 			length:  1,
 		},
 		{
-			desc:    "returns length of linked list",
+			desc:    "returns length of stack",
 			content: []int{1, 2, 3, 4},
 			length:  4,
 		},
@@ -55,8 +55,8 @@ func TestStackSize(t *testing.T) {
 				s.Push(v)
 			}
 
-			if listLength := s.Size(); listLength != tC.length {
-				t.Errorf("Expected length to be %d but got %d", tC.length, listLength)
+			if stackLength := s.Size(); stackLength != tC.length {
+				t.Errorf("Expected length to be %d but got %d", tC.length, stackLength)
 			}
 		})
 	}

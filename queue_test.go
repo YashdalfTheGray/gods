@@ -22,3 +22,40 @@ func TestNewQueue(t *testing.T) {
 		})
 	}
 }
+
+func TestQueueSize(t *testing.T) {
+	testCases := []struct {
+		desc    string
+		content []int
+		length  uint32
+	}{
+		{
+			desc:    "returns 0 for empty queue",
+			content: []int{},
+			length:  0,
+		},
+		{
+			desc:    "returns 1 for a queue with 1 item in it",
+			content: []int{1},
+			length:  1,
+		},
+		{
+			desc:    "returns length of queue",
+			content: []int{1, 2, 3, 4},
+			length:  4,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			q := gods.NewQueue()
+
+			for _, v := range tC.content {
+				q.Enqueue(v)
+			}
+
+			if qLength := q.Size(); qLength != tC.length {
+				t.Errorf("Expected length to be %d but got %d", tC.length, qLength)
+			}
+		})
+	}
+}
