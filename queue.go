@@ -16,3 +16,9 @@ func NewQueue() *Queue {
 func (q Queue) Size() uint32 {
 	return q.list.Length()
 }
+
+// Enqueue adds stuff to the end of the queue
+func (q *Queue) Enqueue(data interface{}) *Queue {
+	q.list.Push(data)
+	return q
+}
