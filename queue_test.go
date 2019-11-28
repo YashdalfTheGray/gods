@@ -59,3 +59,62 @@ func TestQueueSize(t *testing.T) {
 		})
 	}
 }
+
+func TestStackEnqueue(t *testing.T) {
+	testCases := []struct {
+		desc    string
+		in1     string
+		in2     string
+		in3     string
+		addAll  bool
+		prepend []string
+		length  uint32
+	}{
+		{
+			desc:    "can push something on an empty queue",
+			in1:     "things",
+			in2:     "",
+			in3:     "",
+			addAll:  false,
+			prepend: []string{},
+			length:  1,
+		},
+		{
+			desc:    "can push something on a non-empty queue",
+			in1:     "bar",
+			in2:     "",
+			in3:     "",
+			addAll:  false,
+			prepend: []string{"foo"},
+			length:  2,
+		},
+		{
+			desc:    "supports fluent API",
+			in1:     "things",
+			in2:     "stuff",
+			in3:     "other things",
+			addAll:  true,
+			prepend: []string{},
+			length:  3,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			q := gods.NewQueue()
+
+			for _, v := range tC.prepend {
+				q.Enqueue(v)
+			}
+
+			if tC.addAll {
+				q.Enqueue(tC.in1).Enqueue(tC.in2).Enqueue(tC.in3)
+			} else {
+				q.Enqueue(tC.in1)
+			}
+
+			if q.Size() != tC.length {
+				t.Errorf("Expected length to be %d but got %d", tC.length, q.Size())
+			}
+		})
+	}
+}
