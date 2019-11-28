@@ -1,5 +1,7 @@
 package gods
 
+import "errors"
+
 // Queue is a simple queue data structure backed by
 // a singly linked list
 type Queue struct {
@@ -21,4 +23,13 @@ func (q Queue) Size() uint32 {
 func (q *Queue) Enqueue(data interface{}) *Queue {
 	q.list.Push(data)
 	return q
+}
+
+// Dequeue removes stuff from the start of the queue
+func (q *Queue) Dequeue() (interface{}, error) {
+	val, err := q.list.Unshift()
+	if err != nil {
+		return nil, errors.New("The queue is empty")
+	}
+	return val, nil
 }
