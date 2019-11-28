@@ -60,7 +60,7 @@ func TestQueueSize(t *testing.T) {
 	}
 }
 
-func TestStackEnqueue(t *testing.T) {
+func TestQueueEnqueue(t *testing.T) {
 	testCases := []struct {
 		desc    string
 		in1     string
@@ -114,6 +114,52 @@ func TestStackEnqueue(t *testing.T) {
 
 			if q.Size() != tC.length {
 				t.Errorf("Expected length to be %d but got %d", tC.length, q.Size())
+			}
+		})
+	}
+}
+
+func TestQueueDequeue(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		content     []int
+		expectError bool
+		result      interface{}
+	}{
+		{
+			desc:        "can dequeue from a queue with some stuff",
+			content:     []int{1, 2, 3, 4},
+			expectError: false,
+			result:      1,
+		},
+		{
+			desc:        "can dequeue from a queue with one stuff",
+			content:     []int{5},
+			expectError: false,
+			result:      5,
+		},
+		{
+			desc:        "dequeue from a queue with no stuff returns error",
+			content:     []int{},
+			expectError: true,
+			result:      nil,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			q := gods.NewQueue()
+
+			for _, v := range tC.content {
+				q.Enqueue(v)
+			}
+
+			result, err := q.Dequeue()
+			if tC.expectError && err == nil {
+				t.Errorf("Expected error but got nil")
+			}
+
+			if result != tC.result {
+				t.Errorf("Expected pop to return %d but got %d", tC.result, result)
 			}
 		})
 	}
