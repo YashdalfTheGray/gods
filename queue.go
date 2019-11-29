@@ -33,3 +33,13 @@ func (q *Queue) Dequeue() (interface{}, error) {
 	}
 	return val, nil
 }
+
+// Peek returns a copy of the element at the start
+// of the queue
+func (q Queue) Peek() (interface{}, error) {
+	val, err := q.list.GetAt(0)
+	if err != nil {
+		return nil, errors.New("The queue is empty")
+	}
+	return val, nil
+}
