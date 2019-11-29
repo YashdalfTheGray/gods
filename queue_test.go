@@ -164,3 +164,49 @@ func TestQueueDequeue(t *testing.T) {
 		})
 	}
 }
+
+func TestQueuePeek(t *testing.T) {
+	testCases := []struct {
+		desc        string
+		content     []int
+		expectError bool
+		result      interface{}
+	}{
+		{
+			desc:        "can peek at a queue with some stuff",
+			content:     []int{1, 2, 3, 4},
+			expectError: false,
+			result:      1,
+		},
+		{
+			desc:        "can peek at a queue with one stuff",
+			content:     []int{5},
+			expectError: false,
+			result:      5,
+		},
+		{
+			desc:        "peek at a queue with no stuff returns error",
+			content:     []int{},
+			expectError: true,
+			result:      nil,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			q := gods.NewQueue()
+
+			for _, v := range tC.content {
+				q.Enqueue(v)
+			}
+
+			result, err := q.Peek()
+			if tC.expectError && err == nil {
+				t.Errorf("Expected error but got nil")
+			}
+
+			if result != tC.result {
+				t.Errorf("Expected getAt to return %d but got %d", tC.result, result)
+			}
+		})
+	}
+}

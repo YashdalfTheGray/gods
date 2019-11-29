@@ -187,7 +187,7 @@ func TestStackPeek(t *testing.T) {
 			result:      5,
 		},
 		{
-			desc:        "can peek at a stack with no stuff returns error",
+			desc:        "peek at a stack with no stuff returns error",
 			content:     []int{},
 			expectError: true,
 			result:      nil,
