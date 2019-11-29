@@ -43,3 +43,8 @@ func (q Queue) Peek() (interface{}, error) {
 	}
 	return val, nil
 }
+
+// IsEmpty returns whether the queue is empty
+func (q Queue) IsEmpty() bool {
+	return q.list.Length() == 0
+}
