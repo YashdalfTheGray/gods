@@ -210,3 +210,35 @@ func TestQueuePeek(t *testing.T) {
 		})
 	}
 }
+
+func TestQueueIsEmpty(t *testing.T) {
+	testCases := []struct {
+		desc     string
+		content  []int
+		expected bool
+	}{
+		{
+			desc:     "returns true for an empty queue",
+			content:  []int{},
+			expected: true,
+		},
+		{
+			desc:     "returns true for an empty queue",
+			content:  []int{1, 2, 3},
+			expected: false,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			q := gods.NewQueue()
+
+			for _, v := range tC.content {
+				q.Enqueue(v)
+			}
+
+			if actual := q.IsEmpty(); actual != tC.expected {
+				t.Errorf("Expected IsEmpty to return %t but got %t", tC.expected, actual)
+			}
+		})
+	}
+}
