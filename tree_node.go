@@ -9,5 +9,6 @@ type TreeNode struct {
 
 // NewTreeNode builds a new tree node and returns it
 func NewTreeNode(data interface{}) TreeNode {
-	return TreeNode{data, []TreeNode{}}
+	list := NewSinglyLinkedList()
+	return TreeNode{data, &list}
 }
