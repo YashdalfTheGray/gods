@@ -4,7 +4,7 @@ package gods
 // pointer and its childen
 type TreeNode struct {
 	Data     interface{}
-	Children []TreeNode
+	Children *SinglyLinkedList
 }
 
 // NewTreeNode builds a new tree node and returns it
