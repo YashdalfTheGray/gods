@@ -22,10 +22,14 @@ func TestNewTreeNode(t *testing.T) {
 	}
 	for _, tC := range testCases {
 		t.Run(tC.desc, func(t *testing.T) {
-			tn := gods.NewTreeNode(tC.desc)
+			tn := gods.NewTreeNode(tC.data)
 
 			if len(tn.Children) != 0 {
 				t.Errorf("Expected initial children length to be 0")
+			}
+
+			if tn.Data != tC.data {
+				t.Errorf("Expected data to be %d but got %d", tC.data, tn.Data)
 			}
 		})
 	}

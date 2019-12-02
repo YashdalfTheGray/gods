@@ -3,7 +3,7 @@ package gods
 // TreeNode represents a section of a tree, contains a data
 // pointer and its childen
 type TreeNode struct {
-	data     interface{}
+	Data     interface{}
 	Children []TreeNode
 }
 
