@@ -12,3 +12,8 @@ func NewTreeNode(data interface{}) TreeNode {
 	list := NewSinglyLinkedList()
 	return TreeNode{data, &list}
 }
+
+// IsLeaf returns whether a node is a leaf or not
+func (n TreeNode) IsLeaf() bool {
+	return n.Children.Length() == 0
+}
