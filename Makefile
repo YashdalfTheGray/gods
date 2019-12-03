@@ -18,3 +18,6 @@ coverage: .artifacts-stamp
 clean:
 	rm -rf artifacts
 	rm .artifacts-stamp
+
+convey:
+	$GOPATH/bin/goconvey
