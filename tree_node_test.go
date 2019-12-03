@@ -34,3 +34,35 @@ func TestNewTreeNode(t *testing.T) {
 		})
 	}
 }
+
+func TestTreeNodeIsLeaf(t *testing.T) {
+	testCases := []struct {
+		desc     string
+		data     int
+		children []int
+	}{
+		{
+			desc:     "returns true for a leaf node",
+			data:     1,
+			children: []int{},
+		},
+		{
+			desc:     "returns false for an actual tree node",
+			data:     1,
+			children: []int{1, 2, 3},
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			tn := gods.NewTreeNode(tC.data)
+
+			for _, v := range tC.children {
+				tn.Children.Push(v)
+			}
+
+			if tn.IsLeaf() != (len(tC.children) == 0) {
+				t.Errorf("Expected tree node to be a leaf and it wasn't")
+			}
+		})
+	}
+}
