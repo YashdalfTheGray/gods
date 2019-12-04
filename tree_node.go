@@ -4,16 +4,16 @@ package gods
 // pointer and its childen
 type TreeNode struct {
 	Data     interface{}
-	Children *SinglyLinkedList
+	Children []*TreeNode
 }
 
 // NewTreeNode builds a new tree node and returns it
 func NewTreeNode(data interface{}) TreeNode {
-	list := NewSinglyLinkedList()
-	return TreeNode{data, &list}
+	children := make([]*TreeNode, 0)
+	return TreeNode{data, children}
 }
 
 // IsLeaf returns whether a node is a leaf or not
 func (n TreeNode) IsLeaf() bool {
-	return n.Children.Length() == 0
+	return len(n.Children) == 0
 }
