@@ -24,7 +24,7 @@ func TestNewTreeNode(t *testing.T) {
 		t.Run(tC.desc, func(t *testing.T) {
 			tn := gods.NewTreeNode(tC.data)
 
-			if tn.Children.Length() != 0 {
+			if len(tn.Children) != 0 {
 				t.Errorf("Expected initial children length to be 0")
 			}
 
@@ -57,7 +57,7 @@ func TestTreeNodeIsLeaf(t *testing.T) {
 			tn := gods.NewTreeNode(tC.data)
 
 			for _, v := range tC.children {
-				tn.Children.Push(v)
+				tn.AddChild(v)
 			}
 
 			if tn.IsLeaf() != (len(tC.children) == 0) {

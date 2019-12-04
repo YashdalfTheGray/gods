@@ -17,3 +17,11 @@ func NewTreeNode(data interface{}) TreeNode {
 func (n TreeNode) IsLeaf() bool {
 	return len(n.Children) == 0
 }
+
+// AddChild adds a child to the tree node
+func (n *TreeNode) AddChild(child interface{}) *TreeNode {
+	newTreeNode := NewTreeNode(child)
+	n.Children = append(n.Children, &newTreeNode)
+
+	return n
+}
