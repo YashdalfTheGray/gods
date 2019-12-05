@@ -66,3 +66,39 @@ func TestTreeNodeIsLeaf(t *testing.T) {
 		})
 	}
 }
+
+func TestTreeNodeAddChild(t *testing.T) {
+	testCases := []struct {
+		desc            string
+		child           uint8
+		prepend         []uint8
+		numberOfChilden int
+	}{
+		{
+			desc:            "can add a child to the tree node",
+			child:           8,
+			prepend:         []uint8{},
+			numberOfChilden: 1,
+		},
+		{
+			desc:            "can add a child to the tree node with children",
+			child:           8,
+			prepend:         []uint8{2, 3, 4},
+			numberOfChilden: 4,
+		},
+	}
+	for _, tC := range testCases {
+		t.Run(tC.desc, func(t *testing.T) {
+			tn := gods.NewTreeNode(1)
+
+			for _, childToAdd := range tC.prepend {
+				tn.AddChild(childToAdd)
+			}
+			tn.AddChild(tC.child)
+
+			if len(tn.Children) != tC.numberOfChilden {
+				t.Errorf("Expected children to have length %d but got %d", tC.numberOfChilden, len(tn.Children))
+			}
+		})
+	}
+}
